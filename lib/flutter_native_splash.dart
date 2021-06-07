@@ -114,6 +114,7 @@ String checkImageExists(
 Map<String, dynamic> getConfig(String? configFile) {
   // if `flutter_native_splash.yaml` exists use it as config file, otherwise use `pubspec.yaml`
   String filePath;
+  print(configFile);
   if (configFile != null && File(configFile).existsSync()) {
     filePath = configFile;
   } else if (File('flutter_native_splash.yaml').existsSync()) {
