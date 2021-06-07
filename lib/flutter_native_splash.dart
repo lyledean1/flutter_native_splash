@@ -17,7 +17,9 @@ part 'web.dart';
 
 /// Create splash screens for Android and iOS
 void createSplash() {
-  var config = getConfig();
+  var filePath = String.fromEnvironment('FLUTTER_NATIVE_SPLASH_PATH',
+      defaultValue: 'flutter_native_spalsh.yaml');
+  var config = getConfig(filePath);
   checkConfig(config);
   createSplashByConfig(config);
 }
@@ -85,7 +87,9 @@ void createSplashByConfig(Map<String, dynamic> config) {
 /// Remove any splash screen by setting the default white splash
 void removeSplash() {
   print('Restoring Flutter\'s default white native splash screen...');
-  var config = getConfig();
+  var filePath = String.fromEnvironment('FLUTTER_NATIVE_SPLASH_PATH',
+      defaultValue: 'flutter_native_spalsh.yaml');
+  var config = getConfig(filePath);
 
   var removeConfig = <String, dynamic>{'color': '#ffffff'};
   if (config.containsKey('android')) {
@@ -111,14 +115,10 @@ String checkImageExists(
 }
 
 /// Get config from `pubspec.yaml` or `flutter_native_splash.yaml`
-Map<String, dynamic> getConfig({String? configFile}) {
+Map<String, dynamic> getConfig(String filePath) {
   // if `flutter_native_splash.yaml` exists use it as config file, otherwise use `pubspec.yaml`
-  String filePath;
-  if (configFile != null && File(configFile).existsSync()) {
-    filePath = configFile;
-  } else if (File('flutter_native_splash.yaml').existsSync()) {
-    filePath = 'flutter_native_splash.yaml';
-  } else {
+
+  if (!File(filePath).existsSync()) {
     filePath = 'pubspec.yaml';
   }
 

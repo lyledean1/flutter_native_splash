@@ -47,7 +47,7 @@ flutter_native_splash:
   color: "#00ff00"
 ''');
       final Map<String, dynamic>? config =
-          getConfig(configFile: 'flutter_native_splash.yaml');
+          getConfig('flutter_native_splash.yaml');
       File('flutter_native_splash.yaml').deleteSync();
       expect(config, isNotNull);
       expect(config!['color'], '#00ff00');
@@ -58,13 +58,26 @@ flutter_native_splash:
 flutter_native_splash:
   color: "#00ff00"
 ''');
-      final Map<String, dynamic>? config = getConfig();
+      final Map<String, dynamic>? config =
+          getConfig('flutter_native_splash.yaml');
       File('pubspec.yaml').deleteSync();
       expect(config, isNotNull);
       expect(config!['color'], '#00ff00');
 
       // fails if config file is missing
-      expect(() => getConfig(), throwsException);
+      expect(() => getConfig('flutter_native_splash.yaml'), throwsException);
+    });
+    test('different file name', () {
+      setCurrentDirectory('default');
+      File('flutter_different_splash.yaml').writeAsStringSync('''
+flutter_native_splash:
+  color: "#00dd00"
+''');
+      final Map<String, dynamic>? config =
+          getConfig('flutter_different_splash.yaml');
+      File('flutter_different_splash.yaml').deleteSync();
+      expect(config, isNotNull);
+      expect(config!['color'], '#00dd00');
     });
   });
 }
