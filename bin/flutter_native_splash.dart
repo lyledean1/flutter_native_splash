@@ -13,4 +13,5 @@ void main(List<String> arguments) {
   var results = parser.parse(['path']);
 
   flutter_native_splash.createSplash(results['path']);
+  // flutter_native_splash.removeSplash(results['path']);
 }
