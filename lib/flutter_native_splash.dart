@@ -89,6 +89,7 @@ void removeSplash() {
   print('Restoring Flutter\'s default white native splash screen...');
   var filePath = String.fromEnvironment('FLUTTER_NATIVE_SPLASH_PATH',
       defaultValue: 'flutter_native_spalsh.yaml');
+  print(filePath);
   var config = getConfig(filePath);
 
   var removeConfig = <String, dynamic>{'color': '#ffffff'};
